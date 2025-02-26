@@ -6,10 +6,12 @@ public class PlayerAnimationManager : MonoBehaviour
 {
   private Animator animator;
   private PlayerMovement movement;
+  private Rigidbody rb;
   public void Start()
   {
       animator = GetComponent<Animator>();
       movement = GetComponent<PlayerMovement>();
+      rb = GetComponent<Rigidbody>();
   }
   public void LateUpdate()
   {
@@ -18,8 +20,8 @@ public class PlayerAnimationManager : MonoBehaviour
         return;
       }
 
-      animator.SetFloat("CharacterSpeed", movement.GetMoveSpeed());
-      animator.SetBool("IsFalling",!movement.isGrounded);
+      animator.SetFloat("CharacterSpeed", rb.velocity.magnitude);
+      animator.SetBool("IsFalling",!movement.IsGrounded);
       if (Input.GetButtonUp("Fire1"))
       {
         animator.SetTrigger("doRoll");
